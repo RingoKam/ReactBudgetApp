@@ -1,4 +1,4 @@
-import {NEW_INCOME_ITEM, GET_INCOME_ITEM} from '../actions/action_income_item'
+import {NEW_INCOME_ITEM} from '../../actions/data/action_income_item'
 import moment from 'moment';
 
 const initialState = {

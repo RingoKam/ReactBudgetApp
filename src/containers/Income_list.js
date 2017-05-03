@@ -5,7 +5,7 @@ import _ from 'underscore';
 import jslinq from 'jslinq';
 
 import IncomeItem from '../components/income_item'
-import {AddIncomeItem} from '../actions/action_income_item'
+import {AddIncomeItem} from '../actions/data/action_income_item'
 
 class IncomeList extends Component {
 
@@ -53,7 +53,8 @@ class IncomeList extends Component {
 
 function MapStateToProps(state) {
     console.log(state);
-    const IncomeListGroup = _.groupBy(Object.keys(state.IncomeItems).map(key => state.IncomeItems[key]), (income) => income.category_id)
+    const data = state.data; 
+    const IncomeListGroup = _.groupBy(Object.keys(data.IncomeItems).map(key => data.IncomeItems[key]), (income) => income.category_id)
     const IncomeList = Object
         .keys(IncomeListGroup)
         .map((key) => {
@@ -61,9 +62,9 @@ function MapStateToProps(state) {
                 ? IncomeListGroup[key].reduce((acc, cur) => acc.amount + cur.amount)
                 : IncomeListGroup[key][0].amount
             console.log(IncomeListGroup[key], total);
-            return {
-                category: state.Category[IncomeListGroup[key][0].category_id],
-                budget: state.Budget[IncomeListGroup[key][0].category_id],
+            return {    
+                category: data.Category[IncomeListGroup[key][0].category_id],
+                budget: data.Budget[IncomeListGroup[key][0].category_id],
                 total
             }
         });
